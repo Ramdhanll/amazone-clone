@@ -7,9 +7,10 @@ const data = {
          image: '/images/p1.jpg',
          price: 120000,
          brand: 'Nike',
-         rating: 4.5,
-         numReviews: 10,
-         description: 'high quality product'
+         rating: 4,
+         numReviews: 20,
+         description: 'high quality product',
+         countInStock: 10
       },
       {
          _id: 2,
@@ -18,9 +19,10 @@ const data = {
          image: '/images/p1.jpg',
          price: 120000,
          brand: 'Nike',
-         rating: 4.5,
+         rating: 3.5,
          numReviews: 10,
-         description: 'high quality product'
+         description: 'high quality product',
+         countInStock: 10
       },
       {
          _id: 3,
@@ -31,7 +33,8 @@ const data = {
          brand: 'Nike',
          rating: 4.5,
          numReviews: 10,
-         description: 'high quality product'
+         description: 'high quality product',
+         countInStock: 10
       },
       {
          _id: 4,
@@ -40,9 +43,10 @@ const data = {
          image: '/images/p1.jpg',
          price: 120000,
          brand: 'Nike',
-         rating: 4.5,
+         rating: 5,
          numReviews: 10,
-         description: 'high quality product'
+         description: 'high quality product',
+         countInStock: 10
       },
       {
          _id: 5,
@@ -53,7 +57,8 @@ const data = {
          brand: 'Nike',
          rating: 4.5,
          numReviews: 10,
-         description: 'high quality product'
+         description: 'high quality product',
+         countInStock: 10
       },
    ]
 }

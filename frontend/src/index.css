@@ -82,6 +82,9 @@ a.brand {
   justify-content: center;
 }
 
+.row.top {
+  align-items: flex-start;
+}
 /* Images */
 img {
   border-radius: 0.5rem;
@@ -117,4 +120,8 @@ img.medium {
 .rating span {
   color: #f0c040;
   margin: 0.1rem;
+}
+
+.rating span:last-child {
+  color: #040404;
 }
