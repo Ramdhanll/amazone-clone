@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import data from '../../../data'
 import Rating from '../Rating'
 
@@ -10,6 +11,7 @@ const Detail = (props) => {
    }
    return (
       <div>
+         <Link to="/">Back to result</Link>
          <div className="row top">
             <div className="col-2">
                <img className="large" src={product.image} alt={product.name}/>
