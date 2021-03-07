@@ -1,0 +1,28 @@
+{
+  "name": "amazone-clone",
+  "version": "1.0.0",
+  "description": "Membuat cloning Amazone dengan MERN STACK serta menggunakan berbagai library antara lain\r - React Router\r -",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ramdhanll/amazone-clone.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ramdhanll/amazone-clone/issues"
+  },
+  "homepage": "https://github.com/Ramdhanll/amazone-clone#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-plugin-react": "^7.22.0"
+  }
+}
