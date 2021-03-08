@@ -4,26 +4,18 @@ import Product from '../Product/Product'
 import MessageBox from '../util/MessageBox'
 import LoadingBox from '../util/LoadingBox'
 
-const HomeScreen = () => {
-   const [products, setProducts] = useState([])
-   const [loading, setLoading] = useState(false)
-   const [error, setError] = useState(false)
-   useEffect(() => {
-      const fetchProducts = async () => {
-         try {
-            setLoading(true)
-            const { data } = await axios.get('/api/products')
-            setLoading(false)
-            setProducts(data.products)   
-         } catch (error) {
-            setError(error.message)
-            setLoading(false)
-         }
-      }
-      
-      fetchProducts()
-   }, [])
+import { listProducts } from '../../redux'
+import { useDispatch, useSelector } from 'react-redux'
 
+const HomeScreen = () => {
+   const productList = useSelector(state => state.productList)
+   const { loading, error, products } = productList
+
+   const dispatch = useDispatch()   
+
+   useEffect(() => {
+      dispatch(listProducts())
+   }, [])
 
    return (
       <div className="row center">
