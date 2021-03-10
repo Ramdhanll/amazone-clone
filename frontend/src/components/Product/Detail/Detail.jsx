@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import data from '../../../data'
 import Rating from '../Rating'
 import MessageBox from '../../util/MessageBox'
 import LoadingBox from '../../util/LoadingBox'
