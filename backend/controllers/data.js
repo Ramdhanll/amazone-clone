@@ -17,7 +17,6 @@ const data = {
    ],
    products: [
       {
-         _id: 1,
          name: 'Kaos Putih',
          category: 'Shirts',
          image: '/images/t1.jpg',
@@ -29,7 +28,6 @@ const data = {
          countInStock: 10
       },
       {
-         _id: 2,
          name: 'Kaos 3s Hitam Rabbit',
          category: 'Shirts',
          image: '/images/t2.jpg',
@@ -41,7 +39,6 @@ const data = {
          countInStock: 0
       },
       {
-         _id: 3,
          name: 'Kaos 3s Hitam Concert',
          category: 'Shirts',
          image: '/images/t3.jpg',
@@ -53,7 +50,6 @@ const data = {
          countInStock: 5
       },
       {
-         _id: 4,
          name: 'Chino Coklat',
          category: 'Pants',
          image: '/images/t4.jpg',
@@ -65,7 +61,6 @@ const data = {
          countInStock: 3
       },
       {
-         _id: 5,
          name: 'Chino Hitam',
          category: 'Pants',
          image: '/images/t5.jpg',

@@ -1,13 +1,23 @@
+import expressAsyncHandler from 'express-async-handler'
+import Product from '../models/productModel.js'
 import data from './data.js'
 
-export const getAllProducts = (req, res) => {
-   return res.send(data)
-}
+export const seed = expressAsyncHandler( async (req, res) => {
+   await Product.remove({})
+   const createdProducts = await Product.insertMany(data.products)
+   res.send(createdProducts)
+})
 
-export const getProduct = (req, res) => {
-   const product = data.products.find(product => product._id === Number.parseInt(req.params.id))
+export const getAllProducts = expressAsyncHandler( async (req, res) => {
+   const products = await Product.find({})
+   return res.send({products})
+})
 
-   if (!product) return res.status(404).json({ message: 'Product not Found' })
-
-   return res.status(200).json(product)
-}
+export const getProduct = expressAsyncHandler( async (req, res) => {
+   try {
+      const product = await Product.findById(req.params.id)
+      return res.status(200).json(product)
+   } catch (error) {
+      return res.status(404).json({ message: 'Product not Found' })
+   }
+})
