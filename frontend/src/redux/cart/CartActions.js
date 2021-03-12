@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, DONE } from './CartTypes'
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, CART_REMOVE_ALL, DONE } from './CartTypes'
 import store from '../store'
 
 export const addToCart = async (productId, qty) => {
@@ -30,4 +30,10 @@ export const removeFromCart = async (productId) => {
    localStorage.setItem('cartItems', JSON.stringify(store.getState().cart.cartItems))
 
    return {type: DONE}
+}
+
+export const removeAllFromCart = async () => {
+   return {
+      type: CART_REMOVE_ALL
+   }
 }

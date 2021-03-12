@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Link, Route } from 'react-router-dom'
-import { Home, ProductDetail, Cart, Signin } from './components'
+import { Home, ProductDetail, Cart, Signin, Register } from './components'
 import { useDispatch, useSelector } from 'react-redux'
 import { signout } from './redux'
 
@@ -30,7 +30,7 @@ const App = () => {
             {
               userInfo ? (
                 <div className="dropdown">
-                  <Link to="#">{userInfo.name} <i className="fa fa-caret-down"></i> </Link>
+                  <Link to="#">{userInfo.name}<i className="fa fa-caret-down"></i> </Link>
                   <ul className="dropdown-content">
                     <Link to="#signout" onClick={signoutHandler}>
                       Sign Out
@@ -45,6 +45,7 @@ const App = () => {
         </header>
         <main>
           <Route path="/signin" component={Signin}></Route>
+          <Route path="/register" component={Register}></Route>
           <Route path="/product/:id" component={ProductDetail}></Route>
           <Route path="/" component={Home} exact></Route>
           <Route path="/cart/:id?" component={Cart}></Route>

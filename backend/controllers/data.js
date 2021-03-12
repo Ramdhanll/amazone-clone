@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-var salt = bcrypt.genSaltSync(10);
+var salt = bcrypt.genSaltSync(8);
 const data = {
    users: [
       {
