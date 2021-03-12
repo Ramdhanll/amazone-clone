@@ -1,13 +1,12 @@
-import { CART_ADD_ITEM, CART_REMOVE_ALL, CART_REMOVE_ITEM, DONE } from "./CartTypes";
+import { CART_ADD_ITEM, CART_REMOVE_ALL, CART_REMOVE_ITEM, CART_SAVE_SHIPPING_ADDRESS } from "./CartTypes";
 
 const initialState = {
-   cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
+   cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
+   shippingAddress: localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : {}
 }
 
 export const cart = (state = initialState, action) => {
    switch (action.type) {
-      case DONE:
-         return state
       case CART_ADD_ITEM:
          const item = action.payload
          const existItem = state.cartItems.find(x => x.product === item.product)
@@ -28,6 +27,8 @@ export const cart = (state = initialState, action) => {
          }
       case CART_REMOVE_ALL:
          return { cartItems: []}
+      case CART_SAVE_SHIPPING_ADDRESS:
+         return {...state, shippingAddress: action.payload}
       default:
          return state;
    }
