@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Product from '../Product/Product'
-import MessageBox from '../util/MessageBox'
-import LoadingBox from '../util/LoadingBox'
+import MessageBox from '../utils/MessageBox'
+import LoadingBox from '../utils/LoadingBox'
 
 import { listProducts } from '../../redux'
 import { useDispatch, useSelector } from 'react-redux'

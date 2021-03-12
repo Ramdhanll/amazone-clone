@@ -12,7 +12,6 @@ export const seed = expressAsyncHandler(async (req, res) => {
 })
 
 export const signin = expressAsyncHandler( async (req, res) => {
-   console.log(req.body)
    const {email, password} = req.body
    const user = await User.findOne({ email: email })
 

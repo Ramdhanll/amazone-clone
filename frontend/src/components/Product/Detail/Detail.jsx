@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Rating from '../Rating'
-import MessageBox from '../../util/MessageBox'
-import LoadingBox from '../../util/LoadingBox'
+import MessageBox from '../../utils/MessageBox'
+import LoadingBox from '../../utils/LoadingBox'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { detailsProduct } from '../../../redux'

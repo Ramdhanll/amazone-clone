@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart, removeFromCart } from '../../../redux'
+import { addToCart, removeFromCart } from '../../redux'
 import { Link, useHistory } from 'react-router-dom'
 
-import MessageBox from '../../util/MessageBox'
+import MessageBox from '../utils/MessageBox'
 
 const Cart = (props) => {
    const dispatch = useDispatch()
@@ -21,12 +21,11 @@ const Cart = (props) => {
    }, [dispatch, productId, qty])   
 
    const removeFromCartHandler = id => {
-      console.log('run')
       dispatch(removeFromCart(id))
    }
 
    const checkoutHandler = () => {
-      history.push('signin?redirect=shipping')
+      history.push('/signin?redirect=shipping')
    }
 
    return (

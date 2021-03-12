@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ITEM, SUCCESS } from "./CartTypes";
+import { CART_ADD_ITEM, CART_REMOVE_ITEM, DONE } from "./CartTypes";
 
 const initialState = {
    cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
@@ -6,7 +6,7 @@ const initialState = {
 
 export const cart = (state = initialState, action) => {
    switch (action.type) {
-      case SUCCESS:
+      case DONE:
          return state
       case CART_ADD_ITEM:
          const item = action.payload
