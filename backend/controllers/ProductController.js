@@ -1,6 +1,5 @@
 import expressAsyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js'
-import data from './data.js'
 
 export const seed = expressAsyncHandler( async (req, res) => {
    await Product.remove({})
