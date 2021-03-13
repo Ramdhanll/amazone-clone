@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 
 import productRouter from './routes/productRouter.js'
 import userRouter from './routes/userRouter.js'
+import paymentRouter from './routes/paymentRouter.js'
 
 const PORT = process.env.PORT || 5000 
 dotenv.config()
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
+app.use('/api/payment', paymentRouter)
 
 app.use((err, req, res, next) => {// this method from express-async-handler to handle error
    res.status(500).send({message: err.message})

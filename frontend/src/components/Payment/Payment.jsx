@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { savePaymentMethod } from '../../redux'
@@ -10,11 +11,14 @@ const Payment = (props) => {
       props.history.push('/shipping')
    }
    
-   const [paymentMethod, setPaymentMethod] = useState('')
+   const [paymentMethod, setPaymentMethod] = useState('PayPal')
    const dispatch = useDispatch()
 
-   const submitHandler = e => {
+   const submitHandler = async e => {
       e.preventDefault()
+      // const { data } = await axios.post('/api/payment')
+      // console.log(data)
+      // window.snap.pay(data.transactionToken)
 
       dispatch(savePaymentMethod(paymentMethod))
       props.history.push('/placeorder')
