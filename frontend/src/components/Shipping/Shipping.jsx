@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingAddress } from '../../redux'
-import CheckoutSteps from './CheckoutSteps'
+import CheckoutSteps from '../utils/CheckoutSteps'
 
 const Shipping = (props) => {
    const dispatch = useDispatch()

@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Link, Route } from 'react-router-dom'
-import { Home, ProductDetail, Cart, Signin, Register, Shipping } from './components'
+import { Home, ProductDetail, Cart, Signin, Register, Shipping, Payment } from './components'
 import { useDispatch, useSelector } from 'react-redux'
 import { signout } from './redux'
 
@@ -50,6 +50,7 @@ const App = () => {
           <Route path="/product/:id" component={ProductDetail}></Route>
           <Route path="/cart/:id?" component={Cart}></Route>
           <Route path="/shipping" component={Shipping}></Route>
+          <Route path="/payment" component={Payment}></Route>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>
