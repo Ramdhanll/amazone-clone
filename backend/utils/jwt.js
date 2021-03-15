@@ -10,3 +10,23 @@ export const generateToken = user => {
       expiresIn: '30d'
    })
 }
+
+export const isAuth = (req, res, next) => {
+   const {authorization} = req.headers
+
+   if (!authorization) return res.status(401).json({ message: 'you must be logged in'})
+
+   const token = authorization.replace("Bearer ", "")
+   jwt.verify(token, process.env.JWT_SECRET || 'somethingsecret', (err, decode) => {
+      if (err) return res.status(401).json({ message: 'Invalid Token', err})
+      /**
+       * value decode
+       * _id: xxx
+       * user: xxx
+       * email: xxx
+       * xxxx: xxxxx
+       */
+      req.user = decode
+      next()
+   })
+}

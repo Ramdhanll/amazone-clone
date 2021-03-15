@@ -2,10 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-
-import productRouter from './routes/productRouter.js'
-import userRouter from './routes/userRouter.js'
-import paymentRouter from './routes/paymentRouter.js'
+import { productRouter, userRouter, paymentRouter, orderRouter } from './routes/index.js'
 
 const PORT = process.env.PORT || 5000 
 dotenv.config()
@@ -31,8 +28,9 @@ app.get('/', (req, res) => {
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
 app.use('/api/payment', paymentRouter)
+app.use('/api/order', orderRouter)
 
-app.use((err, req, res, next) => {// this method from express-async-handler to handle error
+app.use((err, req, res, next) => { // this method from express-async-handler to handle error
    res.status(500).send({message: err.message})
 })
 
