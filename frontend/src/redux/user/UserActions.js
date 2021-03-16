@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CART_REMOVE_ALL } from '../cart/CartTypes'
+import { CART_EMPTY } from '../cart/CartTypes'
 import {
    USER_SIGNIN_REQUEST,
    USER_SIGNIN_FAIL,
@@ -56,6 +56,6 @@ export const signout = () => dispatch => {
    localStorage.removeItem('userInfo')
    localStorage.removeItem('cartItems')
    localStorage.removeItem('shippingAddress')
-   dispatch({type: CART_REMOVE_ALL})
+   dispatch({type: CART_EMPTY})
    dispatch({type: USER_SIGNOUT})
 }

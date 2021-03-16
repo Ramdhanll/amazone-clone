@@ -8,7 +8,6 @@ const Shipping = (props) => {
 
    const cart = useSelector(state => state.cart)
    const { shippingAddress } = cart
-
    const userSignin = useSelector(state => state.userSignin)
    const { userInfo } = userSignin
    if (!userInfo) {

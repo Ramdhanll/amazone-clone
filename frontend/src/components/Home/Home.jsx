@@ -6,7 +6,7 @@ import LoadingBox from '../utils/LoadingBox'
 import { listProducts } from '../../redux'
 import { useDispatch, useSelector } from 'react-redux'
 
-const HomeScreen = () => {
+const Home = () => {
    const productList = useSelector(state => state.productList)
    const { loading, error, products } = productList
 
@@ -31,4 +31,4 @@ const HomeScreen = () => {
    )
 }
 
-export default HomeScreen
+export default Home

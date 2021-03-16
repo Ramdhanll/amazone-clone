@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM, CART_REMOVE_ALL, CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHIPPING_ADDRESS } from "./CartTypes";
+import { CART_ADD_ITEM, CART_EMPTY, CART_REMOVE_ITEM, CART_SAVE_PAYMENT_METHOD, CART_SAVE_SHIPPING_ADDRESS } from "./CartTypes";
 
 const initialState = {
    cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : [],
@@ -26,8 +26,8 @@ export const cart = (state = initialState, action) => {
             ...state, 
             cartItems: state.cartItems.filter( x => x.product !== action.payload)
          }
-      case CART_REMOVE_ALL:
-         return { cartItems: []}
+      case CART_EMPTY:
+         return { ...state, cartItems: [],}
       case CART_SAVE_SHIPPING_ADDRESS:
          return {...state, shippingAddress: action.payload}
       case CART_SAVE_PAYMENT_METHOD:
