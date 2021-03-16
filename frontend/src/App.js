@@ -1,8 +1,18 @@
 import React from 'react'
 import { BrowserRouter, Link, Route } from 'react-router-dom'
-import { Home, ProductDetail, Cart, Signin, Register, Shipping, Payment, PlaceOrder } from './components'
 import { useDispatch, useSelector } from 'react-redux'
 import { signout } from './redux'
+import { 
+  Home, 
+  ProductDetail, 
+  Cart, 
+  Signin, 
+  Register, 
+  Shipping, 
+  Payment, 
+  PlaceOrder, 
+  Order 
+} from './components'
 
 const App = () => {
   const cart = useSelector(state => state.cart)
@@ -52,6 +62,7 @@ const App = () => {
           <Route path="/shipping" component={Shipping}></Route>
           <Route path="/payment" component={Payment}></Route>
           <Route path="/placeorder" component={PlaceOrder}></Route>
+          <Route path="/order/:id" component={Order}></Route>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>
