@@ -25,11 +25,13 @@ app.get('/', (req, res) => {
 
 
 // Routes
-app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
+app.use('/api/products', productRouter)
 app.use('/api/payment', paymentRouter)
 app.use('/api/order', orderRouter)
-
+app.get('/api/config/paypal', (req, res) => {
+   res.send(process.env.PAYPAL_CLIENT_ID || 'sb') // sb is SandBox
+})
 app.use((err, req, res, next) => { // this method from express-async-handler to handle error
    res.status(500).send({message: err.message})
 })

@@ -36,3 +36,18 @@ export const getOrder = expressAsyncHandler( async (req, res) => {
    if (!order) return res.status(404).json({ message: 'Order Not Found'})
    res.status(200).json(order)
 })
+
+export const updateOrder = expressAsyncHandler( async (req, res) => {
+   const {id, status, update_time, payer: {email_address}} = req.body
+   const order = await Order.findById(req.params.id)
+
+   if (!order) return res.status(404).json({ message: 'Order Not Found'})
+   
+   order.isPaid = true;
+   order.paidAt = Date.now()
+   order.paymentResult = { id, status, update_time, email_address }
+
+   const updatedOrder = await order.save()
+
+   res.status(200).json({ message: 'Order Paid', order: updatedOrder })
+})
