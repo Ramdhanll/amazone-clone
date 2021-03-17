@@ -11,7 +11,8 @@ import {
   Shipping, 
   Payment, 
   PlaceOrder, 
-  Order 
+  Order, 
+  OrderHistory
 } from './components'
 
 const App = () => {
@@ -40,11 +41,17 @@ const App = () => {
             {
               userInfo ? (
                 <div className="dropdown">
-                  <Link to="#">{userInfo.name}<i className="fa fa-caret-down"></i> </Link>
+                  <Link to="#">{userInfo.name}<i className="fa fa-caret-down"></i></Link>
+                  
                   <ul className="dropdown-content">
-                    <Link to="#signout" onClick={signoutHandler}>
-                      Sign Out
-                    </Link>
+                    <li>
+                      <Link to="/orderHistory">Order History</Link>
+                    </li>
+                    <li>
+                      <Link to="#signout" onClick={signoutHandler}>
+                        Sign Out
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               ) :
@@ -61,8 +68,9 @@ const App = () => {
           <Route path="/cart/:id?" component={Cart}></Route>
           <Route path="/shipping" component={Shipping}></Route>
           <Route path="/payment" component={Payment}></Route>
-          <Route path="/placeorder" component={PlaceOrder}></Route>
-          <Route path="/order/:id" component={Order}></Route>
+          <Route path="/placeorder" component={PlaceOrder}></Route>          
+          <Route path="/order/:id" component={Order} ></Route>
+          <Route path="/orderHistory" component={OrderHistory}></Route>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

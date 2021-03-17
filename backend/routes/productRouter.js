@@ -1,5 +1,6 @@
 import express from 'express'
 import { getAllProducts, getProduct, seed } from '../controllers/ProductController.js'
+import { isAuth } from '../utils/jwt.js'
 
 const productRouter = express.Router()
 

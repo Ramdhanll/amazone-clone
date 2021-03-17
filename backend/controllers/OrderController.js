@@ -51,3 +51,10 @@ export const updateOrder = expressAsyncHandler( async (req, res) => {
 
    res.status(200).json({ message: 'Order Paid', order: updatedOrder })
 })
+
+export const listOrderMine = expressAsyncHandler( async (req, res) => {
+   const orders = await Order.find({ user: req.user._id })
+   if (!orders) return res.status(404).json({ message: 'Order Not Found'})
+
+   res.status(200).json(orders)
+})

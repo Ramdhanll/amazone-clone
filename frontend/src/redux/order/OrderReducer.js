@@ -1,4 +1,4 @@
-import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_RESET, ORDER_CREATE_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_RESET, ORDER_PAY_SUCCESS } from "./OrderTypes";
+import { ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_CREATE_RESET, ORDER_CREATE_SUCCESS, ORDER_DETAILS_FAIL, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_MINE_LIST_FAIL, ORDER_MINE_LIST_REQUEST, ORDER_MINE_LIST_SUCCESS, ORDER_PAY_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_RESET, ORDER_PAY_SUCCESS } from "./OrderTypes";
 
 const orderCreateState = {}
 
@@ -49,6 +49,23 @@ export const orderPay = (state = orderPayState, action) => {
          return { loading: false, error: action.payload }
       case ORDER_PAY_RESET:
          return { loading: false }
+      default:
+         return state
+   }
+}
+
+const orderMineListState = {
+   orders: []
+}
+
+export const orderMineList = (state = orderMineListState, action) => {
+   switch (action.type) {
+      case ORDER_MINE_LIST_REQUEST:
+         return { loading: true }
+      case ORDER_MINE_LIST_SUCCESS:
+         return { loading: false, orders: action.payload }
+      case ORDER_MINE_LIST_FAIL:
+         return { loading: false, error: action.payload }
       default:
          return state
    }
