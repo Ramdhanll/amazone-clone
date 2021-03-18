@@ -12,8 +12,11 @@ import {
   Payment, 
   PlaceOrder, 
   Order, 
-  OrderHistory
+  OrderHistory,
+  Profile,
+  PrivateRoute
 } from './components'
+
 
 const App = () => {
   const cart = useSelector(state => state.cart)
@@ -45,6 +48,9 @@ const App = () => {
                   
                   <ul className="dropdown-content">
                     <li>
+                      <Link to="/profile">Profile</Link>
+                    </li>
+                    <li>
                       <Link to="/orderHistory">Order History</Link>
                     </li>
                     <li>
@@ -71,6 +77,7 @@ const App = () => {
           <Route path="/placeorder" component={PlaceOrder}></Route>          
           <Route path="/order/:id" component={Order} ></Route>
           <Route path="/orderHistory" component={OrderHistory}></Route>
+          <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>
