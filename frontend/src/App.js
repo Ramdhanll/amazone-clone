@@ -16,6 +16,7 @@ import {
   Profile,
   PrivateRoute
 } from './components'
+import { AdminProductList, AdminRoute } from './components/index'
 
 
 const App = () => {
@@ -63,6 +64,25 @@ const App = () => {
               ) :
               <Link to="/signin">Sign In</Link>
             }
+            { userInfo && userInfo.isAdmin && (
+              <div className="dropdown">
+                <Link to="#admin">Admin <i className="fa fa-caret-down"></i> </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/dashboard">Dashboard</Link>
+                  </li>
+                  <li>
+                    <Link to="/admin/productlist">Products</Link>
+                  </li>
+                  <li>
+                    <Link to="/orderlist">Orders</Link>
+                  </li>
+                  <li>
+                    <Link to="/userlist">Users</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
 
           </div>
         </header>
@@ -70,7 +90,7 @@ const App = () => {
           <Route path="/signin" component={Signin}></Route>
           <Route path="/register" component={Register}></Route>
           <Route path="/" component={Home} exact></Route>
-          <Route path="/product/:id" component={ProductDetail}></Route>
+          <Route path="/product/:id" component={ProductDetail} exact></Route>
           <Route path="/cart/:id?" component={Cart}></Route>
           <Route path="/shipping" component={Shipping}></Route>
           <Route path="/payment" component={Payment}></Route>
@@ -78,6 +98,7 @@ const App = () => {
           <Route path="/order/:id" component={Order} ></Route>
           <Route path="/orderHistory" component={OrderHistory}></Route>
           <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
+          <AdminRoute path="/admin/productlist" component={AdminProductList}></AdminRoute>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

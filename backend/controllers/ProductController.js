@@ -20,3 +20,32 @@ export const getProduct = expressAsyncHandler( async (req, res) => {
       return res.status(404).json({ message: 'Product not Found' })
    }
 })
+
+export const store = expressAsyncHandler( async (req, res) => {
+   // const { 
+   //    name, 
+   //    category, 
+   //    image, 
+   //    price, 
+   //    brand, 
+   //    rating, 
+   //    numReviews, 
+   //    desciption, 
+   //    countInStock
+   // } = req.body
+
+   const product = new Product({
+      name: 'sample name' + Date.now(),
+      category: 'sample category',
+      image: '/images/t1.jpg',
+      price: 0,
+      brand: 'sample brand',
+      rating: 0,
+      numReviews: 0,
+      description: 'sample description',
+      countInStock: 0,
+   })
+
+   const createdProduct = await product.save()
+   res.status(200).json({ message: 'Product Created', product: createdProduct })
+})
