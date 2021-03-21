@@ -69,7 +69,7 @@ const ProductList = (props) => {
                               <button
                                  type="button"
                                  className="small"
-                                 onClick={() => props.history.push(`/product/${product._id}/edit`)}
+                                 onClick={() => props.history.push(`/admin/product/${product._id}/edit`)}
                               >
                                  Edit
                               </button>

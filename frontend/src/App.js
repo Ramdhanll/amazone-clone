@@ -16,7 +16,7 @@ import {
   Profile,
   PrivateRoute
 } from './components'
-import { AdminProductList, AdminRoute } from './components/index'
+import { AdminProductEdit, AdminProductList, AdminRoute } from './components/index'
 
 
 const App = () => {
@@ -99,6 +99,7 @@ const App = () => {
           <Route path="/orderHistory" component={OrderHistory}></Route>
           <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
           <AdminRoute path="/admin/productlist" component={AdminProductList}></AdminRoute>
+          <Route path="/admin/product/:id/edit" component={AdminProductEdit}></Route>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

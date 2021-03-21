@@ -25,7 +25,7 @@ export const productList = ( state = { loading: true, products: [] }, action) =>
    }
 }
 
-export const productDetails = (state= { loading: true, product: []}, action) => {
+export const productDetails = (state= { loading: true }, action) => {
    switch (action.type) {
       case PRODUCT_DETAILS_REQUEST:
          return { loading: true }
