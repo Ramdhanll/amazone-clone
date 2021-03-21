@@ -22,18 +22,6 @@ export const getProduct = expressAsyncHandler( async (req, res) => {
 })
 
 export const store = expressAsyncHandler( async (req, res) => {
-   // const { 
-   //    name, 
-   //    category, 
-   //    image, 
-   //    price, 
-   //    brand, 
-   //    rating, 
-   //    numReviews, 
-   //    desciption, 
-   //    countInStock
-   // } = req.body
-
    const product = new Product({
       name: 'sample name' + Date.now(),
       category: 'sample category',
@@ -48,4 +36,32 @@ export const store = expressAsyncHandler( async (req, res) => {
 
    const createdProduct = await product.save()
    res.status(200).json({ message: 'Product Created', product: createdProduct })
+})
+
+export const edit = expressAsyncHandler( async (req, res) => {
+   const productId = req.params.id
+   const product = await Product.findById(productId)
+   const {
+      name,
+      category,
+      image,
+      price,
+      brand,
+      description,
+      countInStock,
+   } = req.body
+
+   if (!product) return res.status(404).json({ message: 'Product Not Found'})
+
+   product.name = name 
+   product.price = price 
+   product.image = image 
+   product.category = category 
+   product.brand = brand 
+   product.countInStock = countInStock 
+   product.description = description 
+
+   const updateProduct = await product.save()
+
+   res.status(200).json({ message: 'Product Updated', product: updateProduct })
 })

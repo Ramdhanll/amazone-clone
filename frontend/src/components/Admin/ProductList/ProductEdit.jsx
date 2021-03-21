@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { detailsProduct } from '../../../redux/index'
+import { detailsProduct, updateProduct } from '../../../redux/index'
+import { PRODUCT_UPDATE_RESET } from '../../../redux/product/ProductTypes'
 import LoadingBox from '../../utils/LoadingBox'
 import MessageBox from '../../utils/MessageBox'
 
@@ -19,8 +20,16 @@ const ProductEdit = (props) => {
    const productDetails = useSelector(state => state.productDetails)
    const { loading, error, product } = productDetails
 
+   const productUpdate = useSelector(state => state.productUpdate)
+   const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate
+
    useEffect(() => {
-      if (!product || product._id !== productId) {
+      if (successUpdate) {
+         props.history.push('/admin/productlist')
+      }
+
+      if (!product || product._id !== productId || successUpdate) {
+         dispatch({ type: PRODUCT_UPDATE_RESET })
          dispatch(detailsProduct(productId))
       } else {
          setName(product.name)
@@ -31,21 +40,35 @@ const ProductEdit = (props) => {
          setBrand(product.brand)
          setDescription(product.description)
       }
-   }, [product, product, productId, dispatch])
+   }, [product, product, productId, dispatch, successUpdate])
 
    const submitHandler = e => {
-      e.prevantDefault()
+      e.preventDefault();
+      dispatch(updateProduct({
+         _id: productId,
+         name,
+         price,
+         image,
+         category,
+         brand,
+         countInStock,
+         description
+      }))
    }
+
    return (
       <div>
          <form className="form" onSubmit={submitHandler}>
             <div>
                <h1>Edit Product {productId}</h1>
             </div>
+
+            {loadingUpdate && <LoadingBox/>}
+            {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
+
             {
                loading ? <LoadingBox/> :
                error ? <MessageBox variant="danger"> {error}</MessageBox> :
-
             <>
                <div>
                   <label htmlFor="name">Name</label>
