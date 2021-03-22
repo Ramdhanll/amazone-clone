@@ -69,7 +69,7 @@ const ProductEdit = (props) => {
       bodyFormData.append('image', file)
       setLoadingUpload(true)
       try {
-         const { data } = axios.post('/api/uploads', bodyFormData, {
+         const { data } = await axios.post('/api/uploads', bodyFormData, {
             headers: {
                Authorization: `Bearer ${userInfo.token}`
             }

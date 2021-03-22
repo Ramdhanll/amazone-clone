@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
    filename(req, file, cb) {
       const { originalname } = file
       const format = originalname.slice(originalname.indexOf('.')) 
-      cb(null, `${Date.now()} ${format}`)
+      cb(null, `${Date.now() + format}`)
    }
 })
 const uploadMulter = multer({ storage })
