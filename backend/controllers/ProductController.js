@@ -65,3 +65,14 @@ export const edit = expressAsyncHandler( async (req, res) => {
 
    res.status(200).json({ message: 'Product Updated', product: updateProduct })
 })
+
+export const destroy = expressAsyncHandler( async (req, res) => {
+   const productId = req.params.id
+   console.log(productId)
+   const product = await Product.findById(productId)
+
+   if (!product) return res.status(404).json({ message: 'Product Not Found'})
+
+   const deleteProduct = await product.remove()
+   return res.status(200).json({ message: 'Product Deleted', product: deleteProduct })
+})

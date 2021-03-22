@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createProduct, listProducts } from '../../../redux/index'
-import { PRODUCT_CREATE_RESET } from '../../../redux/product/ProductTypes'
+import { createProduct, deleteProduct, listProducts } from '../../../redux/index'
+import { PRODUCT_CREATE_RESET, PRODUCT_DELETE_RESET } from '../../../redux/product/ProductTypes'
 import LoadingBox from '../../utils/LoadingBox'
 import MessageBox from '../../utils/MessageBox'
 
@@ -18,20 +18,28 @@ const ProductList = (props) => {
       product: createdProduct 
    } = productCreate
 
+   const productDelete = useSelector(state => state.productDelete)
+   const { loading: loadingDelete, error: errorDelete, success: successDelete } = productDelete
+
    useEffect(() => {
       if (successCreate) {
          dispatch({ type: PRODUCT_CREATE_RESET })
          props.history.push(`/product/${createdProduct._id}/edit`)
       }
+      if (successDelete) {
+         dispatch({ type: PRODUCT_DELETE_RESET })
+      }
       dispatch(listProducts())
-   }, [dispatch, successCreate, createdProduct, props.history])
+   }, [dispatch, successCreate, createdProduct, successDelete, props.history])
 
    const createHandler = () => {
       dispatch(createProduct())
    }
 
-   const deleteHandler = () => {
-
+   const deleteHandler = (product) => {
+      if (window.confirm('Are you sure to delete?')) {
+         dispatch(deleteProduct(product._id));
+      }
    }
 
    return (
@@ -40,8 +48,12 @@ const ProductList = (props) => {
             <h1>Product</h1>
             <button type="button" className="primary" onClick={createHandler}>Create Product</button>
          </div>
+         {loadingDelete && <LoadingBox></LoadingBox>}
+         {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
+
          {loadingCreate && <LoadingBox></LoadingBox>}
          {errorCreate && <MessageBox variant="danger">{errorCreate}</MessageBox>}
+         
          {
             loading ? <LoadingBox /> :
             error ? <MessageBox variant="danger">{error}</MessageBox>:
@@ -76,7 +88,7 @@ const ProductList = (props) => {
                               <button
                                  type="button"
                                  className="small"
-                                 onClick={deleteHandler(product)}
+                                 onClick={() => deleteHandler(product)}
                               >
                                  Delete
                               </button>
