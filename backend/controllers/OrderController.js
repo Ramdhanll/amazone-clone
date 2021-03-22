@@ -1,6 +1,11 @@
 import Order from '../models/orderModel.js'
 import expressAsyncHandler from 'express-async-handler'
 
+export const getAllOrder = expressAsyncHandler( async (req, res) => {
+   const orders = await Order.find({}).populate('user', 'name')
+   res.status(200).json(orders)
+})
+
 export const order = expressAsyncHandler( async (req, res) => {
    const { 
       orderItems, 

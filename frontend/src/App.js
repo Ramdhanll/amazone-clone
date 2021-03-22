@@ -14,9 +14,12 @@ import {
   Order, 
   OrderHistory,
   Profile,
-  PrivateRoute
+  PrivateRoute,
+  AdminProductEdit, 
+  AdminProductList, 
+  AdminRoute, 
+  AdminOrderList
 } from './components'
-import { AdminProductEdit, AdminProductList, AdminRoute } from './components/index'
 
 
 const App = () => {
@@ -69,16 +72,16 @@ const App = () => {
                 <Link to="#admin">Admin <i className="fa fa-caret-down"></i> </Link>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/dashboard">Dashboard</Link>
+                    <Link to="/admin/dashboard">Dashboard</Link>
                   </li>
                   <li>
                     <Link to="/admin/productlist">Products</Link>
                   </li>
                   <li>
-                    <Link to="/orderlist">Orders</Link>
+                    <Link to="/admin/orderlist">Orders</Link>
                   </li>
                   <li>
-                    <Link to="/userlist">Users</Link>
+                    <Link to="/admin/userlist">Users</Link>
                   </li>
                 </ul>
               </div>
@@ -99,6 +102,7 @@ const App = () => {
           <Route path="/orderHistory" component={OrderHistory}></Route>
           <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
           <AdminRoute path="/admin/productlist" component={AdminProductList}></AdminRoute>
+          <AdminRoute path="/admin/orderlist" component={AdminOrderList}></AdminRoute>
           <Route path="/admin/product/:id/edit" component={AdminProductEdit}></Route>
         </main>
         <footer className="row center">All right reserved</footer>

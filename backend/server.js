@@ -29,7 +29,7 @@ app.get('/', (req, res) => {res.send('Server is on!')})
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
 app.use('/api/payment', paymentRouter)
-app.use('/api/order', orderRouter)
+app.use('/api/orders', orderRouter)
 app.use('/api/uploads', uploadRouter)
 app.get('/api/config/paypal', (req, res) => {
    res.send(process.env.PAYPAL_CLIENT_ID || 'sb') // sb is SandBox
