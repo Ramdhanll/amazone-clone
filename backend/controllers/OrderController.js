@@ -63,3 +63,13 @@ export const listOrderMine = expressAsyncHandler( async (req, res) => {
 
    res.status(200).json(orders)
 })
+
+export const destroy = expressAsyncHandler( async (req, res) => {
+   const orderId = req.params.id
+
+   const order = await Order.findById(orderId)
+   if (!order) return res.status(404).json({ message: 'Order Not Found'})
+
+   const deleteOrder = await order.remove()
+   res.status(200).json(deleteOrder)
+})

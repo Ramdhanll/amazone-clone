@@ -1,25 +1,35 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listOrders } from '../../../redux/index'
+import { deleteOrder, listOrders } from '../../../redux/index'
+import { ORDER_DELETE_RESET } from '../../../redux/order/OrderTypes'
 import LoadingBox from '../../utils/LoadingBox'
 import MessageBox from '../../utils/MessageBox'
 
 const OrderList = (props) => {
    const dispatch = useDispatch()
+
    const orderList = useSelector(state => state.orderList)
    const { loading, error, orders } = orderList
 
+   const orderDelete = useSelector(state => state.orderDelete)
+   const { loading: loadingDelete, error: errorDelete, success: SuccessDelete } = orderDelete
+
    useEffect(() => {
+      dispatch({ type: ORDER_DELETE_RESET })
       dispatch(listOrders())
-   }, [dispatch])
+   }, [dispatch, SuccessDelete])
 
    const deleteHandler = order => {
-
+      if (window.confirm('Are you sure to delete?')) {
+         dispatch(deleteOrder(order._id));
+      }
    }
 
    return (
       <div>
          <h1>Orders Lists</h1>
+         {loadingDelete && <LoadingBox></LoadingBox>}
+         {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
          {
             loading ? <LoadingBox/> :
             error ? <MessageBox variant="danger">{error}</MessageBox>:
