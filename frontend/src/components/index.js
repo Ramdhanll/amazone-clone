@@ -10,8 +10,8 @@ export { default as Order } from './Order/Order'
 export { default as OrderHistory } from './Order/History/OrderHistory'
 export { default as Profile } from './Profile/Profile'
 
-export { default as AdminProductList } from './Admin/ProductList/ProductList'
-export { default as AdminProductEdit } from './Admin/ProductList/ProductEdit'
+export { default as AdminProductList } from './Admin/Product/ProductList'
+export { default as AdminProductEdit } from './Admin/Product/ProductEdit'
 
 export { default as PrivateRoute } from './utils/PrivateRoute'
 export { default as AdminRoute } from './utils/AdminRoute'

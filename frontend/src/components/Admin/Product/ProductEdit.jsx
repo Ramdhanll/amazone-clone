@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import axios from '../../../../node_modules/axios/index'
 import { detailsProduct, updateProduct } from '../../../redux/index'
 import { PRODUCT_UPDATE_RESET } from '../../../redux/product/ProductTypes'
 import LoadingBox from '../../utils/LoadingBox'
 import MessageBox from '../../utils/MessageBox'
 
 const ProductEdit = (props) => {
+   const dispatch = useDispatch()
    const productId = props.match.params.id
 
    const [name, setName] = useState('')
@@ -16,12 +18,17 @@ const ProductEdit = (props) => {
    const [brand, setBrand] = useState('')
    const [description, setDescription] = useState('')
 
-   const dispatch = useDispatch()
+   const [loadingUpload, setLoadingUpload] = useState(false)
+   const [errorUpload, setErrorUpload] = useState('')
+   
    const productDetails = useSelector(state => state.productDetails)
    const { loading, error, product } = productDetails
 
    const productUpdate = useSelector(state => state.productUpdate)
    const { loading: loadingUpdate, error: errorUpdate, success: successUpdate } = productUpdate
+
+   const userSignin = useSelector(state => state.userSignin)
+   const { userInfo } = userSignin
 
    useEffect(() => {
       if (successUpdate) {
@@ -40,7 +47,7 @@ const ProductEdit = (props) => {
          setBrand(product.brand)
          setDescription(product.description)
       }
-   }, [product, product, productId, dispatch, successUpdate])
+   }, [product, productId, dispatch, successUpdate, props.history])
 
    const submitHandler = e => {
       e.preventDefault();
@@ -54,6 +61,25 @@ const ProductEdit = (props) => {
          countInStock,
          description
       }))
+   }
+
+   const uploadFileHandler = async e => {
+      const file = e.target.files[0]
+      const bodyFormData = new FormData()
+      bodyFormData.append('image', file)
+      setLoadingUpload(true)
+      try {
+         const { data } = axios.post('/api/uploads', bodyFormData, {
+            headers: {
+               Authorization: `Bearer ${userInfo.token}`
+            }
+         })
+         setImage(data)
+         setLoadingUpload(false)
+      } catch (error) {
+         setErrorUpload(error.message)
+         setLoadingUpload(false)
+      }
    }
 
    return (
@@ -93,12 +119,13 @@ const ProductEdit = (props) => {
                <div>
                   <label htmlFor="image">Image</label>
                   <input 
-                     type="text" 
+                     type="file" 
                      id="image" 
-                     placeholder="Enter image"
-                     value={image}
-                     onChange={e => setImage(e.target.value)}
+                     label="Choose Image"
+                     onChange={uploadFileHandler}
                   />
+                  { loadingUpload && <LoadingBox /> }
+                  { errorUpload && <MessageBox variant="danger">{errorUpload}</MessageBox>}
                </div>
                <div>
                   <label htmlFor="category">Category</label>

@@ -2,7 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import { productRouter, userRouter, paymentRouter, orderRouter } from './routes/index.js'
+import path from 'path'
+import { productRouter, userRouter, paymentRouter, orderRouter, uploadRouter } from './routes/index.js'
 
 const PORT = process.env.PORT || 5000 
 dotenv.config()
@@ -19,16 +20,17 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazone-clone',
    useCreateIndex: true
 }).then(() => console.log('DB Connected!'))
 
-app.get('/', (req, res) => {
-   res.send('Server is on!')
-})
-
+// Middleware
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 // Routes
+app.get('/', (req, res) => {res.send('Server is on!')})
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
 app.use('/api/payment', paymentRouter)
 app.use('/api/order', orderRouter)
+app.use('/api/uploads', uploadRouter)
 app.get('/api/config/paypal', (req, res) => {
    res.send(process.env.PAYPAL_CLIENT_ID || 'sb') // sb is SandBox
 })

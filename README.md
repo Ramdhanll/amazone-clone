@@ -10,7 +10,10 @@ Membuat cloning Amazone dengan MERN STACK serta menggunakan berbagai library ant
 
 # Backend
 - express
+- express-async-handler
+- mongoose
 - jsonwebtoken
 - cors
 - bcrypt
 - dotenv
+- multer
