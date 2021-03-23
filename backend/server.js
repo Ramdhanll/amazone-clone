@@ -19,13 +19,17 @@ mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazone-clone',
    useUnifiedTopology: true,
    useCreateIndex: true
 }).then(() => console.log('DB Connected!'))
+.catch(e => console.log(e))
 
 // Middleware
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
-
+app.use(express.static(path.join(__dirname, '/frontend/build')));
+app.get('*', (req, res) =>
+   res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
+);
 // Routes
-app.get('/', (req, res) => {res.send('Server is on!')})
+// app.get('/', (req, res) => {res.send('Server is on!')})
 app.use('/api/users', userRouter)
 app.use('/api/products', productRouter)
 app.use('/api/payment', paymentRouter)
