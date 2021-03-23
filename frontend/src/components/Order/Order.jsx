@@ -6,7 +6,8 @@ import { PayPalButton } from 'react-paypal-button-v2'
 import { detailsOrder, payOrder } from '../../redux'
 import LoadingBox from '../utils/LoadingBox'
 import MessageBox from '../utils/MessageBox'
-import { ORDER_PAY_RESET } from '../../redux/order/OrderTypes'
+import { ORDER_DELIVER_RESET, ORDER_PAY_RESET } from '../../redux/order/OrderTypes'
+import { deliverOrder } from '../../redux/index'
 
 const Order = (props) => {
    const orderId = props.match.params.id
@@ -17,6 +18,12 @@ const Order = (props) => {
 
    const orderPay = useSelector(state => state.orderPay)
    const { error: errorPay, loading: loadingPay, success: successPay } = orderPay
+
+   const userSignin = useSelector(state => state.userSignin)
+   const { userInfo } = userSignin
+
+   const orderDeliver = useSelector(state => state.orderDeliver)
+   const { loading: loadingDeliver, error: errorDeliver, success: successDeliver } = orderDeliver
 
    const { 
       orderItems, 
@@ -46,8 +53,9 @@ const Order = (props) => {
       }
       
 
-      if (Object.keys(order).length === 0 || successPay || (order && order._id !== orderId)) {
+      if (Object.keys(order).length === 0 || successPay || successDeliver || (order && order._id !== orderId)) {
          dispatch({type: ORDER_PAY_RESET})
+         dispatch({type: ORDER_DELIVER_RESET})
          dispatch(detailsOrder(orderId))
       } else {
          if (!isPaid) {
@@ -58,11 +66,14 @@ const Order = (props) => {
             }
          }
       }
-   }, [dispatch, order, orderId, isPaid, sdkReady, successPay])
+   }, [dispatch, order, orderId, isPaid, sdkReady, successPay, successDeliver])
 
    const successPaymentHandler = (paymentResult) => {
-      console.log('paymentResult', paymentResult)
       dispatch(payOrder(order, paymentResult))
+   }
+
+   const deliverHandler = e => {
+      dispatch(deliverOrder(order._id));
    }
 
    return loading ? (
@@ -176,6 +187,23 @@ const Order = (props) => {
                                     />
                                  </>
                               }
+                           </li>
+                        )
+                     }
+                     {
+                        userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                           <li>
+                              {loadingDeliver && <LoadingBox></LoadingBox>}
+                              {errorDeliver && (
+                              <MessageBox variant="danger">{errorDeliver}</MessageBox>
+                              )}
+                              <button
+                              type="button"
+                              className="primary block"
+                              onClick={deliverHandler}
+                              >
+                              Deliver Order
+                              </button>
                            </li>
                         )
                      }

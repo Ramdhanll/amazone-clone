@@ -73,3 +73,14 @@ export const destroy = expressAsyncHandler( async (req, res) => {
    const deleteOrder = await order.remove()
    res.status(200).json(deleteOrder)
 })
+
+export const deliver = expressAsyncHandler( async (req, res) => {
+   const order = await Order.findById(req.params.id)
+
+   if (!order) return res.status(404).json({ message: 'Order Not Found'})
+   order.isDelivered = true
+   order.deliveredAt = Date.now()
+
+   const updateOrder = await order.save()
+   res.status(200).json({ message: 'Order Delivered', order: updateOrder })
+})

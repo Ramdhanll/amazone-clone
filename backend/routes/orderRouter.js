@@ -1,5 +1,13 @@
 import express from 'express'
-import { getAllOrder, order, getOrder, updateOrder, listOrderMine, destroy } from '../controllers/OrderController.js'
+import { 
+   getAllOrder, 
+   order, 
+   getOrder, 
+   updateOrder, 
+   listOrderMine, 
+   destroy ,
+   deliver
+} from '../controllers/OrderController.js'
 import { isAdmin, isAuth } from '../utils/jwt.js'
 
 const orderRouter = express.Router()
@@ -10,5 +18,6 @@ orderRouter.get('/mine', isAuth, listOrderMine)
 orderRouter.get('/:id', isAuth, getOrder)
 orderRouter.delete('/:id', isAuth, isAdmin, destroy)
 orderRouter.put('/:id/pay', isAuth, updateOrder)
+orderRouter.put('/:id/deliver', isAuth, isAdmin, deliver)
 
 export default orderRouter
