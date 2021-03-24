@@ -13,7 +13,10 @@ import {
    USER_DETAILS_FAIL,
    USER_UPDATE_PROFILE_REQUEST,
    USER_UPDATE_PROFILE_FAIL,
-   USER_UPDATE_PROFILE_SUCCESS
+   USER_UPDATE_PROFILE_SUCCESS,
+   USER_LIST_REQUEST,
+   USER_LIST_SUCCESS,
+   USER_LIST_FAIL
 } from './UserTypes'
 
 export const signin = async (email, password) => async (dispatch)=> {
@@ -49,6 +52,7 @@ export const register = (name, email, password) => async dispatch => {
       dispatch({type: USER_REGISTER_SUCCESS,payload: data})
       dispatch({type: USER_SIGNIN_SUCCESS,payload: data})
       localStorage.setItem('userInfo', JSON.stringify(data))
+      document.location.location.href = '/signin'
    } catch (error) {
       dispatch({
          type: USER_REGISTER_FAIL,
@@ -100,5 +104,25 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
    } catch (error) {
       dispatch({ type: USER_UPDATE_PROFILE_FAIL, payload: error.response && error.response.data.message ? 
          error.response.data.message : error.message})
+   }
+}
+
+export const listUsers = () => async (dispatch, getState) => {
+   dispatch({ type: USER_LIST_REQUEST })
+   const { userSignin: { userInfo }} = getState()
+
+   try {
+      const { data } = await axios.get('/api/users', {
+         headers: {
+            Authorization: `Bearer ${userInfo.token}`
+         }
+      })
+      dispatch({ type: USER_LIST_SUCCESS, payload: data })
+   } catch (error) {
+      dispatch({
+         type: USER_LIST_FAIL,
+         payload: error.response && error.response.data.message ? 
+            error.response.data.message : error.message
+      })
    }
 }

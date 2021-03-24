@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 const Home = () => {
    const productList = useSelector(state => state.productList)
    const { loading, error, products } = productList
-
+   console.log(products)
    const dispatch = useDispatch()   
 
    useEffect(() => {

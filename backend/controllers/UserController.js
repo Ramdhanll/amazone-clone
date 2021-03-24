@@ -73,3 +73,11 @@ export const updateProfile = expressAsyncHandler( async (req, res) => {
    })
 
 })
+
+export const getAllUsers = expressAsyncHandler( async (req, res) => {
+   const users = await User.find({})
+
+   if (!users) return res.status(404).json({ message: 'Users Not Found'})
+
+   return res.status(200).json(users)
+})

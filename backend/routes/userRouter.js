@@ -1,9 +1,10 @@
 import express from 'express'
-import { seed, signin, register, userDetail, updateProfile } from '../controllers/UserController.js'
-import { isAuth } from '../utils/jwt.js'
+import { seed, signin, register, userDetail, updateProfile, getAllUsers } from '../controllers/UserController.js'
+import { isAdmin, isAuth } from '../utils/jwt.js'
 
 const userRouter = express.Router()
 
+userRouter.get('/', isAuth, isAdmin, getAllUsers)
 userRouter.get('/seed', seed)
 userRouter.post('/signin', signin)
 userRouter.post('/register', register)

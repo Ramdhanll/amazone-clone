@@ -13,6 +13,7 @@ export { default as Profile } from './Profile/Profile'
 export { default as AdminProductList } from './Admin/Product/ProductList'
 export { default as AdminProductEdit } from './Admin/Product/ProductEdit'
 export { default as AdminOrderList } from './Admin/Order/OrderList'
+export { default as AdminUserList } from './Admin/User/UserList'
 
 export { default as PrivateRoute } from './utils/PrivateRoute'
 export { default as AdminRoute } from './utils/AdminRoute'

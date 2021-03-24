@@ -18,6 +18,11 @@ const UserSchema = new mongoose.Schema({
       type: Boolean,
       required: true,
       default: false
+   },
+   isSeller: {
+      type: Boolean,
+      required: true,
+      default: false
    }
 }, {
    timestamps: true
