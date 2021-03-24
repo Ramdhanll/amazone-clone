@@ -81,3 +81,13 @@ export const getAllUsers = expressAsyncHandler( async (req, res) => {
 
    return res.status(200).json(users)
 })
+
+export const destroy = expressAsyncHandler( async (req, res) => {
+   console.log(req.params.id)
+   const user = await User.findById(req.params.id)
+   if (!user) return res.status(404).json({ message: 'Users Not Found'})
+   if (user.isAdmin) return res.status(400).json({ message: 'Can Not Delete Admin User' })
+
+   const deletedUser = await user.remove()
+   return res.status(200).json({ mesage: 'User Deleted', user: deletedUser })
+})

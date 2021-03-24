@@ -16,7 +16,10 @@ import {
    USER_UPDATE_PROFILE_SUCCESS,
    USER_LIST_REQUEST,
    USER_LIST_SUCCESS,
-   USER_LIST_FAIL
+   USER_LIST_FAIL,
+   USER_DELETE_REQUEST,
+   USER_DELETE_SUCCESS,
+   USER_DELETE_FAIL
 } from './UserTypes'
 
 export const signin = async (email, password) => async (dispatch)=> {
@@ -121,6 +124,26 @@ export const listUsers = () => async (dispatch, getState) => {
    } catch (error) {
       dispatch({
          type: USER_LIST_FAIL,
+         payload: error.response && error.response.data.message ? 
+            error.response.data.message : error.message
+      })
+   }
+}
+
+export const deleteUser = userId => async (dispatch, getState) => {
+   const { userSignin: { userInfo }} = getState()
+   dispatch({ type: USER_DELETE_REQUEST })
+
+   try {
+      const { data } = await axios.delete(`/api/users/${userId}`, {
+         headers: {
+            Authorization: `Bearer ${userInfo.token}`
+         }
+      })
+      dispatch({ type: USER_DELETE_SUCCESS, payload: data })
+   } catch (error) {
+      dispatch({
+         type: USER_DELETE_FAIL,
          payload: error.response && error.response.data.message ? 
             error.response.data.message : error.message
       })

@@ -1,10 +1,11 @@
 import express from 'express'
-import { seed, signin, register, userDetail, updateProfile, getAllUsers } from '../controllers/UserController.js'
+import { seed, signin, register, userDetail, updateProfile, getAllUsers, destroy } from '../controllers/UserController.js'
 import { isAdmin, isAuth } from '../utils/jwt.js'
 
 const userRouter = express.Router()
 
 userRouter.get('/', isAuth, isAdmin, getAllUsers)
+userRouter.delete('/:id', isAuth, isAdmin, destroy)
 userRouter.get('/seed', seed)
 userRouter.post('/signin', signin)
 userRouter.post('/register', register)
