@@ -8,7 +8,9 @@ export const seed = expressAsyncHandler( async (req, res) => {
 })
 
 export const getAllProducts = expressAsyncHandler( async (req, res) => {
-   const products = await Product.find({})
+   const seller = req.query.seller || ''
+   const sellerFilter = seller ? { seller } : {}
+   const products = await Product.find({ ...sellerFilter })
    return res.send({products})
 })
 
@@ -24,6 +26,7 @@ export const getProduct = expressAsyncHandler( async (req, res) => {
 export const store = expressAsyncHandler( async (req, res) => {
    const product = new Product({
       name: 'sample name' + Date.now(),
+      seller: req.user._id,
       category: 'sample category',
       image: '/images/t1.jpg',
       price: 0,

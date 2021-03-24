@@ -8,11 +8,11 @@ import {
    destroy ,
    deliver
 } from '../controllers/OrderController.js'
-import { isAdmin, isAuth } from '../utils/jwt.js'
+import { isAdmin, isAuth, isSellerOrAdmin } from '../utils/jwt.js'
 
 const orderRouter = express.Router()
 
-orderRouter.get('/', isAuth, isAdmin, getAllOrder)
+orderRouter.get('/', isAuth, isSellerOrAdmin, getAllOrder)
 orderRouter.post('/', isAuth, order)
 orderRouter.get('/mine', isAuth, listOrderMine)
 orderRouter.get('/:id', isAuth, getOrder)

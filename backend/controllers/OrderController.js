@@ -2,7 +2,10 @@ import Order from '../models/orderModel.js'
 import expressAsyncHandler from 'express-async-handler'
 
 export const getAllOrder = expressAsyncHandler( async (req, res) => {
-   const orders = await Order.find({}).populate('user', 'name')
+   const seller = req.query.seller || ''
+   const sellerFilter = seller ? { seller } : {}
+
+   const orders = await Order.find({ ...sellerFilter }).populate('user', 'name')
    res.status(200).json(orders)
 })
 
@@ -20,6 +23,7 @@ export const order = expressAsyncHandler( async (req, res) => {
    if (orderItems.length === 0) return res.status(400).json({ message: 'Cart is empty'})
 
    const order = new Order({
+      seller: orderItems[0].seller,
       orderItems,
       shippingAddress,
       paymentMethod,

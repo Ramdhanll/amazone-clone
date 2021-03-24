@@ -1,10 +1,15 @@
 import mongoose from 'mongoose'
+const { ObjectId } = mongoose.Schema.Types
 
 const productSchema = new mongoose.Schema({
    name: {
       type: String,
       required: true,
       unique: true
+   },
+   seller: { 
+      type: ObjectId, 
+      ref: 'User'
    },
    category: {
       type: String,

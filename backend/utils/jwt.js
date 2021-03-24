@@ -18,14 +18,8 @@ export const isAuth = (req, res, next) => {
    const token = authorization.replace("Bearer ", "")
    jwt.verify(token, process.env.JWT_SECRET || 'somethingsecret', (err, decode) => {
       if (err) return res.status(401).json({ message: 'Invalid Token', err})
-      /**
-       * value decode
-       * _id: xxx
-       * user: xxx
-       * email: xxx
-       * xxxx: xxxxx
-       */
       req.user = decode
+      // console.log(req.user)
       next()
    })
 }
@@ -35,5 +29,21 @@ export const isAdmin = (req, res, next) => {
       next()
    } else {
       res.status(401).json({ message: 'Invalid Admin Token'})
+   }
+}
+
+export const isSeller = (req, res, next) => {
+   if (req.user && req.user.isSeller) {
+      next()
+   } else {
+      res.status(401).json({ message: 'Invalid Seller Token'})
+   }
+}
+
+export const isSellerOrAdmin = (req, res, next) => {
+   if (req.user && (req.user.isAdmin || req.user.isSeller)) {
+      next()
+   } else {
+      res.status(401).json({ message: 'Invalid Admin/Seler Token'})
    }
 }

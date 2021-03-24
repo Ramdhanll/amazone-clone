@@ -19,9 +19,11 @@ import {
   AdminProductList, 
   AdminRoute, 
   AdminOrderList,
-  AdminUserList
+  AdminUserList,
+  AdminUserEdit,
+  SellerRoute,
+  SellerProductList
 } from './components'
-import { AdminUserEdit } from './components/index'
 
 
 const App = () => {
@@ -69,6 +71,23 @@ const App = () => {
               ) :
               <Link to="/signin">Sign In</Link>
             }
+
+            { userInfo && userInfo.isSeller && (
+              <div className="dropdown">
+                <Link to="#admin">
+                  Seller <i className="fa fa-caret-down"></i>
+                </Link>
+                <ul className="dropdown-content">
+                  <li>
+                    <Link to="/seller/productlist">Products</Link>
+                  </li>
+                  <li>
+                    <Link to="/seller/orderlist">Orders</Link>
+                  </li>
+                </ul>
+              </div>
+            )}
+
             { userInfo && userInfo.isAdmin && (
               <div className="dropdown">
                 <Link to="#admin">Admin <i className="fa fa-caret-down"></i> </Link>
@@ -108,6 +127,7 @@ const App = () => {
           <AdminRoute path="/admin/orderlist" component={AdminOrderList}></AdminRoute>
           <AdminRoute path="/admin/userlist" component={AdminUserList}></AdminRoute>
           <AdminRoute path="/admin/user/:id/edit" component={AdminUserEdit}></AdminRoute>
+          <SellerRoute path="/seller/productlist" component={SellerProductList}></SellerRoute>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

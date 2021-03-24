@@ -16,5 +16,8 @@ export { default as AdminOrderList } from './Admin/Order/OrderList'
 export { default as AdminUserList } from './Admin/User/UserList'
 export { default as AdminUserEdit } from './Admin/User/UserEdit'
 
+export { default as SellerProductList } from './Admin/Product/ProductList'
+
 export { default as PrivateRoute } from './utils/PrivateRoute'
 export { default as AdminRoute } from './utils/AdminRoute'
+export { default as SellerRoute } from './utils/SellerRoute'

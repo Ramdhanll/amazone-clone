@@ -7,6 +7,10 @@ import MessageBox from '../../utils/MessageBox'
 
 const ProductList = (props) => {
    const dispatch = useDispatch()
+   const sellerMode = props.match.path.indexOf('/seller') >= 0;
+   const userSignin = useSelector((state) => state.userSignin);
+   const { userInfo } = userSignin;
+
    const productList = useSelector(state => state.productList)
    const { loading, error, products } = productList
 
@@ -29,8 +33,8 @@ const ProductList = (props) => {
       if (successDelete) {
          dispatch({ type: PRODUCT_DELETE_RESET })
       }
-      dispatch(listProducts())
-   }, [dispatch, successCreate, createdProduct, successDelete, props.history])
+      dispatch(listProducts({seller: sellerMode ? userInfo._id : ''}))
+   }, [dispatch, successCreate, createdProduct, successDelete, props.history, sellerMode, userInfo._id])
 
    const createHandler = () => {
       dispatch(createProduct())
