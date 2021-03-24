@@ -82,8 +82,23 @@ export const getAllUsers = expressAsyncHandler( async (req, res) => {
    return res.status(200).json(users)
 })
 
+export const editByAdmin = expressAsyncHandler( async (req, res) => {
+   const { name, email, isSeller, isAdmin } = req.body
+   const user = await User.findById(req.params.id)
+   if (!user) return res.status(404).json({ message: 'Users Not Found'})
+   
+   if (user) {
+      user.name = name
+      user.email = email 
+      user.isSeller = isSeller 
+      user.isAdmin = isAdmin
+      const updatedUser = await user.save()
+
+      return res.status(200).json({ message: "User Updated", user: updatedUser})
+   }
+})
+
 export const destroy = expressAsyncHandler( async (req, res) => {
-   console.log(req.params.id)
    const user = await User.findById(req.params.id)
    if (!user) return res.status(404).json({ message: 'Users Not Found'})
    if (user.isAdmin) return res.status(400).json({ message: 'Can Not Delete Admin User' })

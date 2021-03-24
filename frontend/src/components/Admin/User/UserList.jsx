@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteUser, listUsers } from '../../../redux/index'
+import { USER_DETAILS_RESET } from '../../../redux/user/UserTypes'
 import LoadingBox from '../../utils/LoadingBox'
 import MessageBox from '../../utils/MessageBox'
 
-const UserList = () => {
+const UserList = (props) => {
    const dispatch = useDispatch()
 
    const userList = useSelector(state => state.userList)
@@ -15,6 +16,9 @@ const UserList = () => {
 
    useEffect(() => {
       dispatch(listUsers())
+      dispatch({
+         type: USER_DETAILS_RESET,
+      });
    }, [dispatch, successDelete])
 
    const deleteHandler = user => {
@@ -53,7 +57,7 @@ const UserList = () => {
                               <td>{user.isSeller ? 'YES' : 'NO'}</td>
                               <td>{user.isAdmin ? 'YES' : 'NO'}</td>
                               <td>
-                                 <button>Edit</button>
+                                 <button onClick={() => props.history.push(`/admin/user/${user._id}/edit`)}>Edit</button>
                                  <button onClick={() => deleteHandler(user)}>Delete</button>
                               </td>
                            </tr>

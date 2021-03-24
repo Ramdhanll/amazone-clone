@@ -21,6 +21,7 @@ import {
   AdminOrderList,
   AdminUserList
 } from './components'
+import { AdminUserEdit } from './components/index'
 
 
 const App = () => {
@@ -103,9 +104,10 @@ const App = () => {
           <Route path="/orderHistory" component={OrderHistory}></Route>
           <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
           <AdminRoute path="/admin/productlist" component={AdminProductList}></AdminRoute>
+          <AdminRoute path="/admin/product/:id/edit" component={AdminProductEdit}></AdminRoute>
           <AdminRoute path="/admin/orderlist" component={AdminOrderList}></AdminRoute>
           <AdminRoute path="/admin/userlist" component={AdminUserList}></AdminRoute>
-          <Route path="/admin/product/:id/edit" component={AdminProductEdit}></Route>
+          <AdminRoute path="/admin/user/:id/edit" component={AdminUserEdit}></AdminRoute>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>
