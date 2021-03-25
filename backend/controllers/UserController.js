@@ -116,3 +116,11 @@ export const destroy = expressAsyncHandler( async (req, res) => {
    const deletedUser = await user.remove()
    return res.status(200).json({ mesage: 'User Deleted', user: deletedUser })
 })
+
+export const topSellers = expressAsyncHandler( async (req, res) => {
+   const topSellers = await User.find({isSeller: true})
+      .sort({'seller.rating': -1})
+      .limit(3)
+
+   return res.status(200).json(topSellers)
+})

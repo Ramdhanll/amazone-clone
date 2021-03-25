@@ -34,7 +34,7 @@ const Seller = (props) => {
                            <div className="p-1">
                               <img 
                                  className="small"
-                                 src={`/images/`+user.seller.logo} 
+                                 src={user.seller.logo} 
                                  alt={user.seller.name}
                               />
                            </div>

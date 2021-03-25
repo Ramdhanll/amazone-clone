@@ -24,7 +24,10 @@ import {
    USER_UPDATE_PROFILE_SUCCESS, 
    USER_UPDATE_REQUEST, 
    USER_UPDATE_RESET, 
-   USER_UPDATE_SUCCESS 
+   USER_UPDATE_SUCCESS, 
+   USER_TOPSELLERS_LIST_REQUEST,
+   USER_TOPSELLERS_LIST_SUCCESS,
+   USER_TOPSELLERS_LIST_FAIL
 } from "./UserTypes"
 
 const initialStateUserSignin = {
@@ -139,6 +142,19 @@ export const userUpdate = (state={}, action) => {
          return { loading: false, error: action.payload }
       case USER_UPDATE_RESET:
          return {}
+      default:
+         return state
+   }
+}
+
+export const userTopSellersList = (state = { users: []}, action) => {
+   switch (action.type) {
+      case USER_TOPSELLERS_LIST_REQUEST:
+         return { loading: true }
+      case USER_TOPSELLERS_LIST_SUCCESS:
+         return { loading: false, users: action.payload }
+      case USER_TOPSELLERS_LIST_FAIL:
+         return { loading: false, error: action.payload }
       default:
          return state
    }

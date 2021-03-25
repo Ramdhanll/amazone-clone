@@ -321,3 +321,21 @@ img.large {
 .table button {
   margin: 0 0.2rem;
 }
+
+/* Margin */
+.mt-1 {
+  margin-top: 10px;
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.mt-3 {
+  margin-top: 30px;
+}
+
+/* Carousel */
+.carousel .slide img {
+  max-width: 30rem;
+}
