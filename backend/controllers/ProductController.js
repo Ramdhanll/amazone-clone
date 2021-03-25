@@ -10,17 +10,20 @@ export const seed = expressAsyncHandler( async (req, res) => {
 export const getAllProducts = expressAsyncHandler( async (req, res) => {
    const seller = req.query.seller || ''
    const sellerFilter = seller ? { seller } : {}
-   const products = await Product.find({ ...sellerFilter })
+   const products = await Product.find({ ...sellerFilter }).populate('seller', 'seller.name seller.logo')
    return res.send({products})
 })
 
 export const getProduct = expressAsyncHandler( async (req, res) => {
-   try {
-      const product = await Product.findById(req.params.id)
-      return res.status(200).json(product)
-   } catch (error) {
-      return res.status(404).json({ message: 'Product not Found' })
-   }
+   const product = await Product.findById(req.params.id).populate(
+      'seller', 
+      'seller.name seller.logo seller.rating seller.numReviews'
+   )
+
+   if (!product) return res.status(404).json({ message: 'Product not Found' })
+
+   return res.status(200).json(product)
+   
 })
 
 export const store = expressAsyncHandler( async (req, res) => {
@@ -28,7 +31,7 @@ export const store = expressAsyncHandler( async (req, res) => {
       name: 'sample name' + Date.now(),
       seller: req.user._id,
       category: 'sample category',
-      image: '/images/t1.jpg',
+      image: '/images/t2.jpg',
       price: 0,
       brand: 'sample brand',
       rating: 0,

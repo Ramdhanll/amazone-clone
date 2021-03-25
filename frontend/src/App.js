@@ -22,7 +22,9 @@ import {
   AdminUserList,
   AdminUserEdit,
   SellerRoute,
-  SellerProductList
+  Seller,
+  SellerProductList,
+  SellerOrderList
 } from './components'
 
 
@@ -79,10 +81,10 @@ const App = () => {
                 </Link>
                 <ul className="dropdown-content">
                   <li>
-                    <Link to="/seller/productlist">Products</Link>
+                    <Link to={`/seller/${userInfo._id}/productlist`}>Products</Link>
                   </li>
                   <li>
-                    <Link to="/seller/orderlist">Orders</Link>
+                    <Link to={`/seller/${userInfo._id}/orderlist`}>Orders</Link>
                   </li>
                 </ul>
               </div>
@@ -127,7 +129,9 @@ const App = () => {
           <AdminRoute path="/admin/orderlist" component={AdminOrderList}></AdminRoute>
           <AdminRoute path="/admin/userlist" component={AdminUserList}></AdminRoute>
           <AdminRoute path="/admin/user/:id/edit" component={AdminUserEdit}></AdminRoute>
-          <SellerRoute path="/seller/productlist" component={SellerProductList}></SellerRoute>
+          <Route path="/seller/:id" component={Seller} exact></Route>
+          <SellerRoute path="/seller/:id/productlist" component={SellerProductList}></SellerRoute>
+          <SellerRoute path="/seller/:id/orderlist" component={SellerOrderList}></SellerRoute>
         </main>
         <footer className="row center">All right reserved</footer>
       </div>

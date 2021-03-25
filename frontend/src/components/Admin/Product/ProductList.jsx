@@ -28,7 +28,11 @@ const ProductList = (props) => {
    useEffect(() => {
       if (successCreate) {
          dispatch({ type: PRODUCT_CREATE_RESET })
-         props.history.push(`/product/${createdProduct._id}/edit`)
+         if (sellerMode) {
+            props.history.push(`/seller/${userInfo._id}`)
+         } else {
+            props.history.push(`/admin/productlist`)
+         }
       }
       if (successDelete) {
          dispatch({ type: PRODUCT_DELETE_RESET })

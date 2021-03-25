@@ -1,4 +1,5 @@
 export { default as Home } from './Home/Home'
+export { default as Product } from './Product/Product'
 export { default as ProductDetail } from './Product/Detail/Detail'
 export { default as Cart } from './Cart/Cart'
 export { default as Signin } from './Signin/Signin'
@@ -16,7 +17,9 @@ export { default as AdminOrderList } from './Admin/Order/OrderList'
 export { default as AdminUserList } from './Admin/User/UserList'
 export { default as AdminUserEdit } from './Admin/User/UserEdit'
 
+export { default as Seller} from './Seller/Seller'
 export { default as SellerProductList } from './Admin/Product/ProductList'
+export { default as SellerOrderList } from './Admin/Order/OrderList'
 
 export { default as PrivateRoute } from './utils/PrivateRoute'
 export { default as AdminRoute } from './utils/AdminRoute'
