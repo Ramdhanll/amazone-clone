@@ -10,11 +10,16 @@ export const seed = expressAsyncHandler(async (req, res) => {
 export const getAllProducts = expressAsyncHandler(async (req, res) => {
    const name = req.query.name || ""
    const seller = req.query.seller || ""
+   const category = req.query.category || ""
+
    const nameFilter = name ? { name: { $regex: name, $options: "i" } } : {}
    const sellerFilter = seller ? { seller } : {}
+   const categoryFilter = category ? { category } : {}
+
    const products = await Product.find({
       ...sellerFilter,
       ...nameFilter,
+      ...categoryFilter,
    }).populate("seller", "seller.name seller.logo")
    return res.send({ products })
 })
@@ -28,6 +33,11 @@ export const getProduct = expressAsyncHandler(async (req, res) => {
    if (!product) return res.status(404).json({ message: "Product not Found" })
 
    return res.status(200).json(product)
+})
+
+export const getBycategories = expressAsyncHandler(async (req, res) => {
+   const categories = await Product.find().distinct("category")
+   res.status(200).json(categories)
 })
 
 export const store = expressAsyncHandler(async (req, res) => {

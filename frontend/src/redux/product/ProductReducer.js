@@ -16,11 +16,17 @@ import {
    PRODUCT_DELETE_REQUEST,
    PRODUCT_DELETE_SUCCESS,
    PRODUCT_DELETE_FAIL,
-   PRODUCT_DELETE_RESET
-} from './ProductTypes'
+   PRODUCT_DELETE_RESET,
+   PRODUCT_CATEGORY_LIST_REQUEST,
+   PRODUCT_CATEGORY_LIST_SUCCESS,
+   PRODUCT_CATEGORY_LIST_FAIL,
+} from "./ProductTypes"
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export const productList = ( state = { loading: true, products: [] }, action) => {
+export const productList = (
+   state = { loading: true, products: [] },
+   action
+) => {
    switch (action.type) {
       case PRODUCT_LIST_REQUEST:
          return { ...state, loading: true }
@@ -33,7 +39,20 @@ export const productList = ( state = { loading: true, products: [] }, action) =>
    }
 }
 
-export const productDetails = (state= { loading: true }, action) => {
+export const productCategoryList = (state = { loading: true }, action) => {
+   switch (action.type) {
+      case PRODUCT_CATEGORY_LIST_REQUEST:
+         return { loading: true }
+      case PRODUCT_CATEGORY_LIST_SUCCESS:
+         return { loading: false, categories: action.payload }
+      case PRODUCT_CATEGORY_LIST_FAIL:
+         return { loading: false, error: action.payload }
+      default:
+         return state
+   }
+}
+
+export const productDetails = (state = { loading: true }, action) => {
    switch (action.type) {
       case PRODUCT_DETAILS_REQUEST:
          return { loading: true }
@@ -42,11 +61,11 @@ export const productDetails = (state= { loading: true }, action) => {
       case PRODUCT_DETAILS_FAIL:
          return { loading: false, error: action.payload }
       default:
-         return state;
+         return state
    }
 }
 
-export const productCreate = (state={}, action) => {
+export const productCreate = (state = {}, action) => {
    switch (action.type) {
       case PRODUCT_CREATE_REQUEST:
          return { loading: true }
@@ -66,7 +85,7 @@ export const productUpdate = (state = {}, action) => {
       case PRODUCT_UPDATE_REQUEST:
          return { loading: true }
       case PRODUCT_UPDATE_SUCCESS:
-         return { loading: false, success: true}
+         return { loading: false, success: true }
       case PRODUCT_UPDATE_FAIL:
          return { loading: false, error: action.payload }
       case PRODUCT_UPDATE_RESET:
