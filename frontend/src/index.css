@@ -352,6 +352,10 @@ img.large {
    margin-left: 0.5rem;
 }
 
+.active {
+   font-weight: 900;
+}
+
 /* Aside */
 aside {
    position: fixed;

@@ -4,12 +4,21 @@ import { useParams } from "react-router"
 import { Link } from "react-router-dom"
 import { listProducts } from "../../redux/index"
 import Products from "../Product/Product"
+import Rating from "../Product/Rating"
 import LoadingBox from "../utils/LoadingBox"
 import MessageBox from "../utils/MessageBox"
+import { prices, ratings } from "../utils/Utils"
 
-const Search = () => {
+const Search = (props) => {
    const dispatch = useDispatch()
-   const { name = "all", category = "all" } = useParams()
+   const {
+      name = "all",
+      category = "all",
+      min = 0,
+      max = 0,
+      rating = 0,
+      order = "newest",
+   } = useParams()
 
    const productList = useSelector((state) => state.productList)
    const { loading, error, products } = productList
@@ -26,14 +35,22 @@ const Search = () => {
          listProducts({
             name: name !== "all" ? name : "",
             category: category !== "all" ? category : "",
+            min,
+            max,
+            rating,
+            order,
          })
       )
-   }, [dispatch, name, category])
+   }, [dispatch, name, category, min, max, rating, order])
 
    const getFilterURL = (filter) => {
       const filterCategory = filter.category || category
       const filterName = filter.name || name
-      return `/search/category/${filterCategory}/name/${filterName}`
+      const filterRating = filter.rating || rating
+      const sortOrder = filter.order || order
+      const filterMin = filter.min ? filter.min : filter.min === 0 ? 0 : min
+      const filterMax = filter.max ? filter.max : filter.max === 0 ? 0 : max
+      return `/search/category/${filterCategory}/name/${filterName}/min/${filterMin}/max/${filterMax}/rating/${filterRating}/order/${sortOrder}`
    }
 
    return (
@@ -46,28 +63,88 @@ const Search = () => {
             ) : (
                <div>{products.length} Results</div>
             )}
+            <div>
+               Sort by {""}
+               <select
+                  value={order}
+                  onChange={(e) =>
+                     props.history.push(getFilterURL({ order: e.target.value }))
+                  }
+               >
+                  <option value="newest">Newest Arrivals</option>
+                  <option value="lowest">Price: Low to High</option>
+                  <option value="highest">Price: High to Low</option>
+                  <option value="toprated">Avg. Customer Reviews</option>
+               </select>
+            </div>
          </div>
          <div className="row top">
             <div className="col-1">
                <h3>Department</h3>
-               {loadingCategory ? (
-                  <LoadingBox />
-               ) : errorCategory ? (
-                  <MessageBox variant="danger">{errorCategory}</MessageBox>
-               ) : (
-                  <ul>
-                     {categories.map((c) => (
-                        <li key={c}>
+               <div>
+                  {loadingCategory ? (
+                     <LoadingBox />
+                  ) : errorCategory ? (
+                     <MessageBox variant="danger">{errorCategory}</MessageBox>
+                  ) : (
+                     <ul>
+                        <li>
                            <Link
-                              className={c === category ? "active" : ""}
-                              to={getFilterURL({ category: c })}
+                              className={category === "all" ? "active" : ""}
+                              to={getFilterURL({ category: "all" })}
                            >
-                              {c}
+                              Any
+                           </Link>
+                        </li>
+                        {categories.map((c) => (
+                           <li key={c}>
+                              <Link
+                                 className={c === category ? "active" : ""}
+                                 to={getFilterURL({ category: c })}
+                              >
+                                 {c}
+                              </Link>
+                           </li>
+                        ))}
+                     </ul>
+                  )}
+               </div>
+               <div>
+                  <h3>Price</h3>
+                  <ul>
+                     {prices.map((p) => (
+                        <li key={p.name}>
+                           <Link
+                              to={getFilterURL({ min: p.min, max: p.max })}
+                              className={
+                                 `${p.min}-${p.max}` === `${min}-${max}`
+                                    ? "active"
+                                    : ""
+                              }
+                           >
+                              {p.name}
                            </Link>
                         </li>
                      ))}
                   </ul>
-               )}
+               </div>
+               <div>
+                  <h3>Avg. Custumor Reviews</h3>
+                  <ul>
+                     {ratings.map((r) => (
+                        <li key={r.name}>
+                           <Link
+                              to={getFilterURL({ rating: r.rating })}
+                              className={
+                                 `${r.rating}` === `${rating}` ? "active" : ""
+                              }
+                           >
+                              <Rating caption={" & up"} rating={r.rating} />
+                           </Link>
+                        </li>
+                     ))}
+                  </ul>
+               </div>
             </div>
             <div className="col-3">
                {loading ? (

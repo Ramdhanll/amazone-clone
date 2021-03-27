@@ -242,6 +242,11 @@ const App = () => {
                   component={Search}
                   exact
                />
+               <Route
+                  path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
+                  component={Search}
+                  exact
+               />
             </main>
             <footer className="row center">All right reserved</footer>
          </div>
