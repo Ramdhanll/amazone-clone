@@ -125,3 +125,32 @@ export const destroy = expressAsyncHandler(async (req, res) => {
       .status(200)
       .json({ message: "Product Deleted", product: deleteProduct })
 })
+
+export const sendReview = expressAsyncHandler(async (req, res) => {
+   console.log(req.user)
+   const productId = req.params.id
+   const product = await Product.findById(productId)
+
+   if (!product) return res.status(404).json({ message: "Product Not Found" })
+
+   if (product.reviews.find((x) => x.name === req.user.name)) {
+      return res.status(404).json({ message: "You already submitted a review" })
+   }
+
+   const review = {
+      name: req.user.name,
+      rating: Number(req.body.rating),
+      comment: req.body.comment,
+   }
+   console.log("re", review)
+   product.reviews.push(review)
+   product.numReviews = product.reviews.length
+   product.rating =
+      product.reviews.reduce((a, c) => c.rating + a, 0) / product.reviews.length
+
+   const updateProduct = await product.save()
+   res.status(201).json({
+      message: "Review Created",
+      review: updateProduct.reviews[updateProduct.reviews.length - 1],
+   })
+})
