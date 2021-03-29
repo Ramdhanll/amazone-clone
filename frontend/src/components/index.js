@@ -11,6 +11,7 @@ export { default as Order } from "./Order/Order"
 export { default as OrderHistory } from "./Order/History/OrderHistory"
 export { default as Profile } from "./Profile/Profile"
 export { default as Search } from "./Search/Search"
+export { default as Map } from "./Map/Map"
 
 export { default as AdminProductList } from "./Admin/Product/ProductList"
 export { default as AdminProductEdit } from "./Admin/Product/ProductEdit"

@@ -25,9 +25,10 @@ import {
    Seller,
    SellerProductList,
    SellerOrderList,
+   Map,
+   Search,
 } from "./components"
 import SearchBox from "./components/utils/SearchBox"
-import { Search } from "./components/index"
 import { listProductCategories } from "./redux/index"
 import LoadingBox from "./components/utils/LoadingBox"
 import MessageBox from "./components/utils/MessageBox"
@@ -202,6 +203,7 @@ const App = () => {
                <Route path="/order/:id" component={Order}></Route>
                <Route path="/orderHistory" component={OrderHistory}></Route>
                <PrivateRoute path="/profile" component={Profile}></PrivateRoute>
+               <PrivateRoute path="/map" component={Map}></PrivateRoute>
                <AdminRoute
                   path="/admin/productlist"
                   component={AdminProductList}

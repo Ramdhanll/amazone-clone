@@ -27,7 +27,6 @@ export const isAuth = (req, res, next) => {
       (err, decode) => {
          if (err) return res.status(401).json({ message: "Invalid Token", err })
          req.user = decode
-         console.log("ss", req.user)
          next()
       }
    )

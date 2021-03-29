@@ -18,6 +18,7 @@ import {
    userDelete,
    userUpdate,
    userTopSellersList,
+   userAddressMap,
 } from "./user/UserReducer"
 import {
    orderCreate,
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
    userTopSellersList,
    userDelete,
    userUpdate,
+   userAddressMap,
    productList,
    productCategoryList,
    productDetails,
