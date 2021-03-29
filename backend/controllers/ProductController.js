@@ -1,9 +1,22 @@
 import expressAsyncHandler from "express-async-handler"
 import Product from "../models/productModel.js"
+import { User } from "../models/userModel.js"
+import data from "./data.js"
 
 export const seed = expressAsyncHandler(async (req, res) => {
    await Product.remove({})
-   const createdProducts = await Product.insertMany(data.products)
+   const seller = await User.findOne({ isSeller: true })
+   if (!seller)
+      return res
+         .status(500)
+         .json({ message: "No seller found, first run /api/users/seed" })
+
+   const products = data.products.map((product) => ({
+      ...product,
+      seller: seller._id,
+   }))
+
+   const createdProducts = await Product.insertMany(products)
    res.send(createdProducts)
 })
 
@@ -142,7 +155,7 @@ export const sendReview = expressAsyncHandler(async (req, res) => {
       rating: Number(req.body.rating),
       comment: req.body.comment,
    }
-   console.log("re", review)
+
    product.reviews.push(review)
    product.numReviews = product.reviews.length
    product.rating =

@@ -1,77 +1,93 @@
-import bcrypt from 'bcrypt'
-var salt = bcrypt.genSaltSync(8);
+import bcrypt from "bcrypt"
+var salt = bcrypt.genSaltSync(8)
 const data = {
    users: [
       {
-         name: 'Ramadhani',
-         email: 'admin@example.com',
-         password: bcrypt.hashSync('password', salt),
-         isAdmin: true
+         name: "Ramadhani",
+         email: "admin@example.com",
+         password: bcrypt.hashSync("password", salt),
+         isAdmin: true,
+         isSeller: true,
+         seller: {
+            name: "RamadhaniShop",
+            logo: "/images/logoolshop.jfif",
+            description: "best seller",
+            rating: 4.5,
+            numReviews: 120,
+         },
       },
       {
-         name: 'Joni',
-         email: 'joni@example.com',
-         password: bcrypt.hashSync('password', salt),
-         isAdmin: false
+         name: "Joni",
+         email: "joni@example.com",
+         password: bcrypt.hashSync("password", salt),
+         isAdmin: false,
+         isSeller: true,
+         seller: {
+            name: "JoniShop",
+            logo: "/images/logoolshop.jfif",
+            description: "best seller",
+            rating: 3,
+            numReviews: 100,
+         },
       },
    ],
    products: [
       {
-         name: 'Kaos Putih',
-         category: 'Shirts',
-         image: '/images/t1.jpg',
+         name: "Kaos Putih",
+         category: "Shirts",
+         image: "/images/t1.jpg",
          price: 85000,
-         brand: 'Nike',
+         brand: "Nike",
          rating: 4,
          numReviews: 20,
-         description: 'high quality product',
-         countInStock: 10
+         description: "high quality product",
+         countInStock: 10,
       },
       {
-         name: 'Kaos 3s Hitam Rabbit',
-         category: 'Shirts',
-         image: '/images/t2.jpg',
+         name: "Kaos 3s Hitam Rabbit",
+         category: "Shirts",
+         image: "/images/t2.jpg",
          price: 120000,
-         brand: 'Nike',
+         brand: "Nike",
          rating: 3.5,
          numReviews: 10,
-         description: 'high quality product',
-         countInStock: 0
+         description: "high quality product",
+         countInStock: 0,
       },
       {
-         name: 'Kaos 3s Hitam Concert',
-         category: 'Shirts',
-         image: '/images/t3.jpg',
+         name: "Kaos 3s Hitam Concert",
+         category: "Shirts",
+         image: "/images/t3.jpg",
          price: 100000,
-         brand: 'Nike',
+         brand: "Nike",
          rating: 4.5,
          numReviews: 10,
-         description: 'high quality product',
-         countInStock: 5
+         description: "high quality product",
+         countInStock: 5,
       },
       {
-         name: 'Chino Coklat',
-         category: 'Pants',
-         image: '/images/t4.jpg',
+         name: "Chino Coklat",
+         category: "Pants",
+         image: "/images/t4.jpg",
          price: 150000,
-         brand: 'Nike',
+         brand: "Nike",
          rating: 5,
          numReviews: 10,
-         description: 'high quality product',
-         countInStock: 3
+         description: "high quality product",
+         countInStock: 3,
       },
       {
-         name: 'Chino Hitam',
-         category: 'Pants',
-         image: '/images/t5.jpg',
+         name: "Chino Hitam",
+         category: "Pants",
+         image: "/images/t5.jpg",
          price: 180000,
-         brand: 'Nike',
+         brand: "Nike",
          rating: 4.5,
          numReviews: 10,
-         description: 'high quality product',
-         countInStock: 2
+         description: "high quality product",
+         countInStock: 2,
       },
-   ]
+   ],
 }
 
 export default data
