@@ -21,6 +21,8 @@ export const seed = expressAsyncHandler(async (req, res) => {
 })
 
 export const getAllProducts = expressAsyncHandler(async (req, res) => {
+   const pageSize = 3
+   const page = Number(req.query.pageNumber) || 1
    const name = req.query.name || ""
    const seller = req.query.seller || ""
    const category = req.query.category || ""
@@ -48,6 +50,14 @@ export const getAllProducts = expressAsyncHandler(async (req, res) => {
          ? { rating: -1 }
          : { _id: -1 }
 
+   const count = await Product.countDocuments({
+      ...sellerFilter,
+      ...nameFilter,
+      ...categoryFilter,
+      ...priceFilter,
+      ...ratingFilter,
+   })
+
    const products = await Product.find({
       ...sellerFilter,
       ...nameFilter,
@@ -57,8 +67,14 @@ export const getAllProducts = expressAsyncHandler(async (req, res) => {
    })
       .populate("seller", "seller.name seller.logo")
       .sort(sortOrder)
+      .skip(pageSize * (page - 1))
+      .limit(pageSize)
 
-   return res.send({ products })
+   return res.send({
+      products,
+      page,
+      pages: Math.ceil(count / pageSize),
+   })
 })
 
 export const getProduct = expressAsyncHandler(async (req, res) => {

@@ -207,6 +207,11 @@ const App = () => {
                <AdminRoute
                   path="/admin/productlist"
                   component={AdminProductList}
+                  exact
+               ></AdminRoute>
+               <AdminRoute
+                  path="/admin/productlist/pageNumber/:pageNumber"
+                  component={AdminProductList}
                ></AdminRoute>
                <AdminRoute
                   path="/admin/product/:id/edit"
@@ -245,7 +250,7 @@ const App = () => {
                   exact
                />
                <Route
-                  path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order"
+                  path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
                   component={Search}
                   exact
                />
