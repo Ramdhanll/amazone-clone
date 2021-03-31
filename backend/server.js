@@ -9,6 +9,7 @@ import {
    paymentRouter,
    orderRouter,
    uploadRouter,
+   testRouter,
 } from "./routes/index.js"
 
 const PORT = process.env.PORT || 5000
@@ -41,6 +42,7 @@ app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 app.get("/", (req, res) => {
    res.send("Server is on!")
 })
+app.use("/api/tests", testRouter)
 app.use("/api/users", userRouter)
 app.use("/api/products", productRouter)
 app.use("/api/payment", paymentRouter)
