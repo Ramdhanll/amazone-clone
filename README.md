@@ -9,6 +9,8 @@ Membuat cloning Amazone dengan MERN STACK serta menggunakan berbagai library ant
 -  redux-promise
 -  redux-thunk
 -  react-google-maps/api
+-  react-responsive-carousel
+-  react-paypal-button-v2
 
 # Backend
 
@@ -20,3 +22,4 @@ Membuat cloning Amazone dengan MERN STACK serta menggunakan berbagai library ant
 -  bcrypt
 -  dotenv
 -  multer
+-  nodemailer
